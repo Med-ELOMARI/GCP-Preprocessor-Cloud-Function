@@ -1,9 +1,13 @@
+import os
 import sys
 from unittest import TestCase
 
-sys.path.insert(0, 'preprocessor')
-
 from Core import Parser
+
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, "/../"+myPath)
+
+
 
 class TestParser(TestCase):
     def test_parse_len(self):

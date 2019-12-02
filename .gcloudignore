@@ -12,6 +12,10 @@
 # below:
 .git
 .gitignore
+./tests
+./github/*
+./pytest_cache
+
 
 node_modules
 #!include:.gitignore
