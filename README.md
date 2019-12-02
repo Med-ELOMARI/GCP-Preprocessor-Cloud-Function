@@ -1,8 +1,5 @@
 # Preprocessor using Cloud Function
 
-/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/actions
-
-[![Actions Status](https://github.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/workflows/Python%20application/badge.svg)](https://github.com/{owner}/{repo}/actions)
 
 This Repo host The Preprocessor part to handle requests received from Sigfox network (Callbacks) 
 
