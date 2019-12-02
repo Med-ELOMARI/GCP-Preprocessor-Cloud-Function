@@ -6,8 +6,15 @@ This Repo host The **Preprocessor part** to handle requests received from Sigfox
 
 # Flow
 
-![GCP cloudFunction](https://user-images.githubusercontent.com/11338137/69967196-32914100-1518-11ea-9862-5a865dba9804.png)
+![GCP cloudFunction(1)](https://user-images.githubusercontent.com/11338137/69978600-08964980-152d-11ea-8ad7-8477979bfcc3.png)
 
+
+- input is a Json and Must Contain a time key 
+```json
+{"time": "must have", "data": "Value", "Key2": "Value2","Key3": "Value3" } 
+```
+
+- The output is Json with parsed elements also ( will be writen also to DB firestore) 
 
 # How To Deploy
 
@@ -20,3 +27,4 @@ gcloud functions deploy Preprocessor --entry-point main --runtime python37 --tri
 ```
 
 **Note : No need to have Firestore credentials , everything internally managed By GCP**
+

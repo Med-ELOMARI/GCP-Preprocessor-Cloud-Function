@@ -26,7 +26,10 @@ def validate(data):
 
 
 def fail(data):
-    raise Exception("time or Config keys must be included in the payload ! {}".format(data))
+    raise Exception(
+        "time or Config keys must be included in the payload ! {}".format(data)
+    )
+
 
 def check_key(data, key):
     try:
@@ -100,8 +103,9 @@ class Parser:
 
 
 class trilaterator:
-
-    def __init__(self, station_1_pos, rssi_1, station_2_pos, rssi_2, station_3_pos, rssi_3):
+    def __init__(
+        self, station_1_pos, rssi_1, station_2_pos, rssi_2, station_3_pos, rssi_3
+    ):
         self.rssi_3 = rssi_3
         self.station_3_pos = station_3_pos
 
