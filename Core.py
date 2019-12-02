@@ -97,3 +97,32 @@ class Parser:
                 "Message": self.raw_data,
                 "info": "Unwanted data (Not BLE)",
             }
+
+
+class trilaterator:
+
+    def __init__(self, station_1_pos, rssi_1, station_2_pos, rssi_2, station_3_pos, rssi_3):
+        self.rssi_3 = rssi_3
+        self.station_3_pos = station_3_pos
+
+        self.rssi_2 = rssi_2
+        self.station_2_pos = station_2_pos
+
+        self.rssi_1 = rssi_1
+        self.station_1_pos = station_1_pos
+
+    def get_position(self):
+        (x1, y1), (x2, y2), (x3, y3) = (
+            self.station_1_pos,
+            self.station_2_pos,
+            self.station_3_pos,
+        )
+        A = 2 * x2 - 2 * x1
+        B = 2 * y2 - 2 * y1
+        C = self.rssi_1 ** 2 - self.rssi_2 ** 2 - x1 ** 2 + x2 ** 2 - y1 ** 2 + y2 ** 2
+        D = 2 * x3 - 2 * x2
+        E = 2 * y3 - 2 * y2
+        F = self.rssi_2 ** 2 - self.rssi_3 ** 2 - x2 ** 2 + x3 ** 2 - y2 ** 2 + y3 ** 2
+        x = (C * E - F * B) / (E * A - B * D)
+        y = (C * D - A * F) / (B * D - A * E)
+        return x, y
