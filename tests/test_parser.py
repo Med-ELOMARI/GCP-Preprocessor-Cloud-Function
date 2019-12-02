@@ -1,7 +1,9 @@
+import sys
 from unittest import TestCase
 
-from Core import Parser
+sys.path.insert(0, 'preprocessor')
 
+from Core import Parser
 
 class TestParser(TestCase):
     def test_parse_len(self):

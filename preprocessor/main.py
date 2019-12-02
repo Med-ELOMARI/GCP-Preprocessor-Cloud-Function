@@ -1,8 +1,8 @@
 from flask import jsonify
 from datetime import datetime
 
-from Core import Parser, validate
-from configuration import data_root, Config_root
+from preprocessor.Core import Parser, validate
+from preprocessor.configuration import data_root, Config_root
 
 
 def main(request):
