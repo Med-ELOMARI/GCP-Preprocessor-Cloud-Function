@@ -45,6 +45,7 @@ jobs:
           command: |
             . venv/bin/activate
             pytest tests
+            pytest --cov=./ --cov-report=xml
             codecov
 
       - store_artifacts:
