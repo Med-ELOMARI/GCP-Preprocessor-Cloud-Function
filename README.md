@@ -1,6 +1,7 @@
 # Preprocessor using Cloud Function
 
 ![](https://github.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/workflows/tests/badge.svg)
+[![Build Status](https://travis-ci.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function.svg?branch=master)](https://travis-ci.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function)
 
 This Repo host The **Preprocessor part** to handle requests received from Sigfox network (Callbacks) 
 
