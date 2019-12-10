@@ -19,6 +19,8 @@ jobs:
         pip install -r requirements.txt
         pip install codecov
     - name: Tests with pytest
+      env :
+        CODECOV_TOKEN : "f0a078be-656c-437f-a706-4e6cc2636102"
       run: |
         pip install pytest
         pytest tests
