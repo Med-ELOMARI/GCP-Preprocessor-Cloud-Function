@@ -13,11 +13,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest-cov
+          pip install pytest pytest-cov codecov
 
       - name: Tests with pytest and coverage
         run: |
-          pip install pytest
           pytest tests
           pytest --cov=./ --cov-report=xml
           codecov --token="f0a078be-656c-437f-a706-4e6cc2636102"
