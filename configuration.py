@@ -2,7 +2,7 @@ import os
 
 from firebase_admin import credentials, firestore, initialize_app
 
-ENV = os.getenv("ENV", "dev")
+ENV = os.getenv("ENV", "prod")
 PROJECT_NAME = os.getenv("PROJECT_NAME", "nektiu-4280d")
 Data_collection = os.getenv("Data_collection", "Sigfox")
 Config_collection = os.getenv("Config_collection", "Config")
