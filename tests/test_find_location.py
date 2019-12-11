@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from Core import Station_Config, Coordinates
-from main import find_location
+from Core import Station_Config, Coordinates, find_location
 
 
 def make_test_stations():

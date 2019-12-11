@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from main import parse
+from Core import parse
 
 input = {"time": "Test", "device": "336B67", "data": "3f0001900002800003752502"}
 output = {
