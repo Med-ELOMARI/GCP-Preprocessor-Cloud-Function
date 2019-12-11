@@ -1,6 +1,4 @@
-from random import randint
-
-from configuration import Config_root
+from datetime import datetime
 
 TYPES = {"0F": "None", "1F": "GPS", "2F": "WIFI", "3F": "BLE"}
 
@@ -81,9 +79,10 @@ def get_all__station_configs(Config_root):
     return Configs
 
 
-def fill_fake_stations():
-    for i in range(1, 20):
-        Config_root.document("station_{}_pos".format(i)).set({"x": randint(0, 50), "y": randint(0, 50)})
+# TODO remove boilerplate Code
+# def fill_fake_stations():
+#     for i in range(1, 20):
+#         Config_root.document("station_{}_pos".format(i)).set({"x": randint(0, 50), "y": randint(0, 50)})
 
 
 
@@ -202,3 +201,55 @@ class Station_Config(object):
         return "<Station_Config Object  station_name : {} | x : {} | y : {}>".format(
             self.station_name, self.x, self.y
         )
+
+def get_all_stations(DataParsed):
+    from configuration import Config_root
+    return [
+        get_station_config(
+            "station_{}_pos".format(DataParsed["Station_{}_id".format(id)]),
+            Config_root,
+        )
+        for id in range(1, 4)
+    ]
+
+
+def parse(data):
+    parser = Parser(raw_data=data["data"])
+    data["parsed"] = parser.parse()
+    data["timestamp"] = datetime.timestamp(datetime.now())
+    return data
+
+
+def find_location(data, test_stations=None):
+    station_pos = test_stations if test_stations else get_all_stations(data["parsed"])
+    check = check_stations_cords(stations=station_pos)
+    if check:
+        data["location"] = check
+    else:
+        trilaterate = trilaterator(
+            station_1_pos=station_pos[0].get_coordinates(),
+            rssi_1=data["parsed"]["Station_1_rssi"],
+            station_2_pos=station_pos[1].get_coordinates(),
+            rssi_2=data["parsed"]["Station_2_rssi"],
+            station_3_pos=station_pos[2].get_coordinates(),
+            rssi_3=data["parsed"]["Station_3_rssi"],
+        )
+        x, y = trilaterate.get_position()
+        data["location"] = {
+            "x": x,
+            "y": y,
+            "ref_{}".format(station_pos[0].station_name): {
+                "x": station_pos[0].get_coordinates()[0],
+                "y": station_pos[0].get_coordinates()[1],
+            },
+            "ref_{}".format(station_pos[1].station_name): {
+                "x": station_pos[1].get_coordinates()[0],
+                "y": station_pos[1].get_coordinates()[1],
+            },
+            "ref_{}".format(station_pos[2].station_name): {
+                "x": station_pos[2].get_coordinates()[0],
+                "y": station_pos[2].get_coordinates()[1],
+            },
+        }
+
+    return data
