@@ -1,8 +1,11 @@
 # Preprocessor using Cloud Function
 
+[![CircleCI](https://circleci.com/gh/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/tree/master.svg?style=svg)](https://circleci.com/gh/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/tree/master)
 ![](https://github.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/workflows/tests/badge.svg)
 [![Build Status](https://travis-ci.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function.svg?branch=master)](https://travis-ci.com/Med-ELOMARI/GCP-Preprocessor-Cloud-Function)
-[![CircleCI](https://circleci.com/gh/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/tree/master.svg?style=svg)](https://circleci.com/gh/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/tree/master)
+[![codecov](https://codecov.io/gh/Med-ELOMARI/GCP-Preprocessor-Cloud-Function/branch/master/graph/badge.svg)](https://codecov.io/gh/Med-ELOMARI/GCP-Preprocessor-Cloud-Function)
+
+
 
 This Repo host The **Preprocessor part** to handle requests received from Sigfox network (Callbacks) 
 
