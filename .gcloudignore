@@ -12,10 +12,12 @@
 # below:
 .git
 .gitignore
-./tests
-./github/*
-./pytest_cache
-
+.tests
+.github/*
+.pytest_cache
+.circleci
+.local
+.travis.yml
 
 node_modules
 #!include:.gitignore
