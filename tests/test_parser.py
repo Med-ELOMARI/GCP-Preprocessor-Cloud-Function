@@ -8,7 +8,6 @@ myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, "/../"+myPath)
 
 
-
 class TestParser(TestCase):
     def test_parse_len(self):
         raw = "0002c90001c50000ff250"
