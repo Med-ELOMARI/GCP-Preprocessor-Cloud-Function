@@ -96,7 +96,6 @@ def main(request, test=False):
 
 if __name__ == "__main__":
     request = {"time": "Test6", "device": "336B67", "data": "3f0001900002800003752502"}
-
     try:
         main(request, test=True)
     except RuntimeError:
