@@ -1,3 +1,7 @@
+from random import randint
+
+from configuration import Config_root
+
 TYPES = {"0F": "None", "1F": "GPS", "2F": "WIFI", "3F": "BLE"}
 
 payload_example = {"time": "must have", "Key1": "Value", "Key2": "Value"}
@@ -37,6 +41,50 @@ def check_key(data, key):
         return True
     except KeyError:
         return False
+
+
+def get_station_config(station, Config_root):
+    """
+    Read A Doc from Config_root object Aka Firestore Collection
+    :param Config_root: root of the Config
+    :param station: Doc Title , name , string
+    :return: Station_Config object
+    """
+    station_1_conf = Config_root.document(station)
+    doc = station_1_conf.get()
+    if doc.to_dict():
+        cords = Coordinates(**doc.to_dict())
+    else:
+        # 9999 , 9999 means station not found
+        cords = Coordinates(9999, 9999)
+    return Station_Config(station_name=station, coordinates=cords)
+
+
+def check_stations_cords(stations):
+    not_found = 0
+    for station in stations:
+        x, y = station.get_coordinates()
+        if x == 9999 and y == 9999:
+            not_found += 1
+    return "missing {} station(s) to do triangulation , received {} RSSIs \n".format(not_found, 3 - not_found) if \
+        not_found else \
+        False
+
+
+def get_all__station_configs(Config_root):
+    Configs = {}
+    docs = Config_root.stream()
+    for doc in docs:
+        if "station_" in doc.id:
+            Configs[doc.id] = get_station_config(doc.id, Config_root)
+
+    return Configs
+
+
+def fill_fake_stations():
+    for i in range(1, 20):
+        Config_root.document("station_{}_pos".format(i)).set({"x": randint(0, 50), "y": randint(0, 50)})
+
 
 
 class Parser:
@@ -130,3 +178,27 @@ class trilaterator:
         x = (C * E - F * B) / (E * A - B * D)
         y = (C * D - A * F) / (B * D - A * E)
         return x, y
+
+
+class Coordinates:
+    def __init__(self, x, y):
+        self.x = float(x)
+        self.y = float(y)
+
+    def __repr__(self):
+        return "<Coordinates Object x : {} | y : {}>".format(self.x, self.y)
+
+
+class Station_Config(object):
+    def __init__(self, station_name, coordinates):
+        self.station_name = station_name
+        self.x = coordinates.x
+        self.y = coordinates.y
+
+    def get_coordinates(self):
+        return self.x, self.y
+
+    def __repr__(self):
+        return "<Station_Config Object  station_name : {} | x : {} | y : {}>".format(
+            self.station_name, self.x, self.y
+        )

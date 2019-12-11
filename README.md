@@ -22,7 +22,9 @@ This Repo host The **Preprocessor part** to handle requests received from Sigfox
 
 # How To Deploy
 
-Setup gcloud console 
+Setup gcloud console and Create a Project
+
+Specify  **PROJECT_NAME** in configuration.py (you can specify Data routes ... aka collections routes)
  
 Make sure there is a Firestore DB created in the same GCP Project
 

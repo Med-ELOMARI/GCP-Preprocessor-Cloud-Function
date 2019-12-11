@@ -3,3 +3,4 @@ key.json
 .DS_Store
 /coverage.xml
 /.coverage
+/.pytest_cache
