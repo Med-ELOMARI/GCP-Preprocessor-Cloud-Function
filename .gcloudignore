@@ -16,7 +16,7 @@
 .github/*
 .pytest_cache
 .circleci
-.local
+.local/*
 .travis.yml
 
 node_modules
