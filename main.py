@@ -17,6 +17,8 @@ def main(request, test=False):
         if result is "payload":
 
             data = parse(data=data)
+            print(data)
+
             data = find_location(data=data)
 
             from configuration import data_root
@@ -40,7 +42,7 @@ def main(request, test=False):
         if test:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
+            print(exc_type, fname, exc_tb.tb_lineno, sys.exc_info())
         return (
             jsonify(
                 {
@@ -53,7 +55,7 @@ def main(request, test=False):
 
 
 if __name__ == "__main__":
-    request = {"time": "Test6", "device": "336B67", "data": "3f0001900002800003752502"}
+    request = {"time": "1576077223", "device": "336B67", "data": "3f0002d50003c50001c32402"}
     try:
         ENV = os.getenv("ENV", "dev")
         test = True if ENV == "dev" or ENV == "test" else False

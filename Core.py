@@ -221,35 +221,43 @@ def parse(data):
 
 
 def find_location(data, test_stations=None):
-    station_pos = test_stations if test_stations else get_all_stations(data["parsed"])
-    check = check_stations_cords(stations=station_pos)
-    if check:
-        data["location"] = check
-    else:
-        trilaterate = trilaterator(
-            station_1_pos=station_pos[0].get_coordinates(),
-            rssi_1=data["parsed"]["Station_1_rssi"],
-            station_2_pos=station_pos[1].get_coordinates(),
-            rssi_2=data["parsed"]["Station_2_rssi"],
-            station_3_pos=station_pos[2].get_coordinates(),
-            rssi_3=data["parsed"]["Station_3_rssi"],
-        )
-        x, y = trilaterate.get_position()
-        data["location"] = {
-            "x": x,
-            "y": y,
-            "ref_{}".format(station_pos[0].station_name): {
-                "x": station_pos[0].get_coordinates()[0],
-                "y": station_pos[0].get_coordinates()[1],
-            },
-            "ref_{}".format(station_pos[1].station_name): {
-                "x": station_pos[1].get_coordinates()[0],
-                "y": station_pos[1].get_coordinates()[1],
-            },
-            "ref_{}".format(station_pos[2].station_name): {
-                "x": station_pos[2].get_coordinates()[0],
-                "y": station_pos[2].get_coordinates()[1],
-            },
-        }
+    data["location"] = {}
+    if data["parsed"]["type"] == "BLE":
+        station_pos = test_stations if test_stations else get_all_stations(data["parsed"])
+        check = check_stations_cords(stations=station_pos)
+        if check:
+            data["location"]["message"] = check
+            data["location"]["status"] = False
 
+        else:
+            trilaterate = trilaterator(
+                station_1_pos=station_pos[0].get_coordinates(),
+                rssi_1=data["parsed"]["Station_1_rssi"],
+                station_2_pos=station_pos[1].get_coordinates(),
+                rssi_2=data["parsed"]["Station_2_rssi"],
+                station_3_pos=station_pos[2].get_coordinates(),
+                rssi_3=data["parsed"]["Station_3_rssi"],
+            )
+            x, y = trilaterate.get_position()
+            data["location"] = {
+                "status": True,
+                "x": x,
+                "y": y,
+                "ref_{}".format(station_pos[0].station_name): {
+                    "x": station_pos[0].get_coordinates()[0],
+                    "y": station_pos[0].get_coordinates()[1],
+                },
+                "ref_{}".format(station_pos[1].station_name): {
+                    "x": station_pos[1].get_coordinates()[0],
+                    "y": station_pos[1].get_coordinates()[1],
+                },
+                "ref_{}".format(station_pos[2].station_name): {
+                    "x": station_pos[2].get_coordinates()[0],
+                    "y": station_pos[2].get_coordinates()[1],
+                },
+            }
+
+    else:
+        data["location"]["message"] = "BLE Data Required"
+        data["location"]["status"] = False
     return data
