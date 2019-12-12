@@ -3,11 +3,14 @@ import os
 from firebase_admin import credentials, initialize_app, firestore
 from google.auth.exceptions import DefaultCredentialsError
 
+DEFAULT_PROJECT_NAME = "nektiu-4280d"
+DEFAULT_DATA_collection_name = "Sigfox"
+DEFAULT_CONFIG_collection_name = "Config"
 
 class Config:
-    PROJECT_NAME = os.getenv("PROJECT_NAME", "nektiu-4280d")
-    Data_collection = os.getenv("Data_collection", "Sigfox")
-    Config_collection = os.getenv("Config_collection", "Config")
+    PROJECT_NAME = os.getenv("PROJECT_NAME", DEFAULT_PROJECT_NAME)
+    Data_collection = os.getenv("DATA_COLLECTION_NAME", DEFAULT_DATA_collection_name)
+    Config_collection = os.getenv("CONFIG_COLLECTION_NAME", DEFAULT_CONFIG_collection_name)
 
 
 class Tests(Config):
