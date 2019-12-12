@@ -1,3 +1,4 @@
+Config for the Sigfox Device
 #######################################################################################################################
 # old Config For the S20
 2d1e180103000000
@@ -13,7 +14,6 @@ Others :    Zeros
 #######################################################################################################################
 # New  Config For The VS06_V103 Firmware
 0103010101000000
-
 01 = 20 sec	    | the frequency of messages sent in trip(8.4,8.5) 3(60 sec)	10~3600	sec  time = value * 20,0:disable
 03 = 30 sec	    | the immobilization timer (8.3)	30(300 sec)	10~600	sec      time = value * 10
 01 = 1 hour	    | the frequency of messages sent in No motion(8.6)	1	1~24	hour, 0:disable
