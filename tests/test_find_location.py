@@ -34,6 +34,17 @@ input = {
     },
     "timestamp": 1576068661.663207,
 }
+input_wrong = {
+    "time": "1576077223",
+    "device": "336B67",
+    "data": "001e5827f3bb50c7bf62f7a4",
+    "parsed": {
+        "type": "UNKNOWN",
+        "Message": "001e5827f3bb50c7bf62f7a4",
+        "info": "Unwanted data (Not BLE)",
+    },
+    "timestamp": 1576162473.655665,
+}
 output = {
     "time": "Test",
     "device": "336B67",
@@ -51,6 +62,7 @@ output = {
     },
     "timestamp": 1576068661.663207,
     "location": {
+        "status": True,
         "x": -24.07608695652174,
         "y": 0.7445652173913043,
         "ref_station_1_pos": {"x": 47.0, "y": 7.0},
@@ -58,8 +70,24 @@ output = {
         "ref_station_3_pos": {"x": 12.0, "y": 37.0},
     },
 }
-
+out_ = dict(location={'message': 'BLE Data Required', 'status': False})
 
 class TestFind_location(TestCase):
     def test_find_location(self):
-        self.assertDictEqual(output, find_location(data=input, test_stations=make_test_stations()))
+        self.assertDictEqual(
+            output, find_location(data=input, test_stations=make_test_stations())
+        )
+
+    def test_find_location_wrong_data(self):
+        self.assertDictEqual(
+            out_["location"], find_location(data=input_wrong, test_stations=make_test_stations())["location"]
+        )
+
+    def test_location_found(self):
+        self.assertTrue(find_location(data=input, test_stations=make_test_stations())["location"]["status"])
+
+    def test_match_location(self):
+        pass
+
+    def test_match_precision(self):
+        pass
